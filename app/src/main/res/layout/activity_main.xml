@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- JUDUL -->
+    <ImageView
+        android:id="@+id/imgJudul"
+        android:layout_width="390dp"
+        android:layout_height="190dp"
+        android:src="@drawable/judul"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="8dp" />
+
+    <!-- AREA FOTO -->
+    <FrameLayout
+        android:layout_width="280dp"
+        android:layout_height="380dp">
+
+        <!-- FOTO DARI KAMERA -->
+        <ImageView
+            android:id="@+id/imgPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:background="#000000"/>
+
+        <!-- FRAME -->
+        <ImageView
+            android:id="@+id/imgFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/frame1"/>
+    </FrameLayout>
+
+    <!-- BUTTON -->
+    <Button
+        android:id="@+id/btnCamera"
+        android:backgroundTint="#fff9f2"
+        android:text="TAKE A PHOTO"
+        android:layout_marginTop="35dp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"/>
+</LinearLayout>
