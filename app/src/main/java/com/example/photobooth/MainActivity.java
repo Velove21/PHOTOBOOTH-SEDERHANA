@@ -13,8 +13,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,12 +35,27 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imgPhoto;
     Button btnCamera;
+    RadioGroup rgFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        rgFrame = findViewById(R.id.rgFrame);
+        // ImageView harus draw open camera ke imgFrame1 atau imgFrame2
+        ImageView imgFrame1 = findViewById(R.id.imgFrame1);
+        ImageView imgFrame2 = findViewById(R.id.imgFrame2);
+
+        rgFrame.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rbFrame2) {
+                imgFrame1.setVisibility(View.GONE);
+                imgFrame2.setVisibility(View.VISIBLE);
+            } else {
+                imgFrame1.setVisibility(View.VISIBLE);
+                imgFrame2.setVisibility(View.GONE);
+            }
+        });
         imgPhoto = findViewById(R.id.imgPhoto);
         btnCamera = findViewById(R.id.btnCamera);
 
@@ -82,32 +99,24 @@ public class MainActivity extends AppCompatActivity {
 
     // (LANJUTAN)GABUNG FOTO + FRAME
     private Bitmap combineWithFrame(Bitmap photo) {
+        // 1. Cek tombol frame mana yang aktif saat ini
+        int selectedFrameId = rgFrame.getCheckedRadioButtonId();
+        int frameRes = (selectedFrameId == R.id.rbFrame2) ? R.drawable.frame2 : R.drawable.frame1;
 
-        Bitmap frame = BitmapFactory.decodeResource(
-                getResources(),
-                R.drawable.frame1
-        );
+        // 2. Load frame sesuai pilihan
+        Bitmap frame = BitmapFactory.decodeResource(getResources(), frameRes);
 
-        Bitmap result = Bitmap.createBitmap(
-                photo.getWidth(),
-                photo.getHeight(),
-                Bitmap.Config.ARGB_8888 // data hasil biar kualitasnya bagus // format warna bitmap yang bagus
-        );
-
+        // 3. Buat canvas baru setara ukuran foto dari kamera
+        Bitmap result = Bitmap.createBitmap(photo.getWidth(), photo.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
 
-        // GAMBAR FOTO
+        // 4. Gambar foto di dasar
         canvas.drawBitmap(photo, 0, 0, null);
 
-        // RESIZE FRAME
-        Bitmap scaledFrame = Bitmap.createScaledBitmap(
-                frame,
-                photo.getWidth(),
-                photo.getHeight(),
-                true
-        );
+        // 5. Resize frame agar pas presisi dengan ukuran foto kamera
+        Bitmap scaledFrame = Bitmap.createScaledBitmap(frame, photo.getWidth(), photo.getHeight(), true);
 
-        // GAMBAR FRAME DI ATAS FOTO
+        // 6. Tempel frame di atasnya
         canvas.drawBitmap(scaledFrame, 0, 0, null);
 
         return result;

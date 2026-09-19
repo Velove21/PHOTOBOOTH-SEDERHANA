@@ -6,8 +6,8 @@
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <!-- JUDUL -->
+
     <ImageView
         android:id="@+id/imgJudul"
         android:layout_width="390dp"
@@ -31,12 +31,42 @@
 
         <!-- FRAME -->
         <ImageView
-            android:id="@+id/imgFrame"
+            android:id="@+id/imgFrame1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/frame1"/>
+        <ImageView
+            android:id="@+id/imgFrame2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/frame2"/>
+
     </FrameLayout>
+
+    <!-- PILIHAN FRAME -->
+    <RadioGroup
+        android:id="@+id/rgFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/rbFrame1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frame 1"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rbFrame2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Frame 2"
+            android:layout_marginStart="16dp" />
+    </RadioGroup>
 
     <!-- BUTTON -->
     <Button
@@ -46,4 +76,5 @@
         android:layout_marginTop="35dp"
         android:layout_width="250dp"
         android:layout_height="60dp"/>
+
 </LinearLayout>
